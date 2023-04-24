@@ -27,7 +27,12 @@ class ConvNet(nn.Module):
         self.act4 = nn.ReLU()
         self.drop3 = nn.Dropout(0.2)
  
-        self.fc4 = nn.Linear(512, 1)
+        self.fc4 = nn.Linear(512, 128)
+        self.act5 = nn.ReLU()
+        self.drop4 = nn.Dropout(0.1)
+        
+        self.fc5 = nn.Linear(128, 1)
+
  
     def forward(self, x):
         x = self.act1(self.conv1(x))
@@ -49,5 +54,9 @@ class ConvNet(nn.Module):
         x = self.drop3(x)
         
         x = self.fc4(x)
+        x = self.act5(x)
+        x = self.drop4(x)
+        
+        x = self.fc5(x)
         
         return torch.sigmoid(x)
